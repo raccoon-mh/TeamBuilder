@@ -1,1 +1,28 @@
-sample
+pages/.DS_Store
+pages/node_modules
+pages/dist
+pages/public
+
+# local env files
+pages/.env.local
+pages/.env.*.local
+
+# Log files
+pages/npm-debug.log*
+pages/yarn-debug.log*
+pages/yarn-error.log*
+pages/pnpm-debug.log*
+
+# Editor directories and files
+pages/.idea
+pages/.vscode
+pages/*.suo
+pages/*.ntvs*
+pages/*.njsproj
+pages/*.sln
+pages/*.sw?
+
+
+#CUSTOM
+staticOld
+README_bak.md
