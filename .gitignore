@@ -22,6 +22,8 @@ pages/*.njsproj
 pages/*.sln
 pages/*.sw?
 
+# Database
+app/meta/meta.db
 
 #CUSTOM
 staticOld
