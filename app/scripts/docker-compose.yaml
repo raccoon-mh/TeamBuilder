@@ -1,0 +1,16 @@
+services:
+  lol-team-maker:
+    container_name: lol-team-maker
+    image: lol-team-maker
+    # build:
+    #   context: ../
+    #   dockerfile: Dockerfile
+    volumes:
+      - ./container/meta/:/app/meta
+    networks:
+      - docker-nginx-network
+    restart: always
+
+networks:
+  docker-nginx-network:
+    external: true

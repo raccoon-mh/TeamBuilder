@@ -25,8 +25,14 @@ pages/*.sw?
 # Database
 app/meta/meta.db
 
+# Deploy
+app/scripts/container
+
+# bin
+app/bin/meta/meta.db
+app/bin/lol-team-maker
+
 #CUSTOM
 staticOld
 README_bak.md
-app/bin/meta/meta.db
-app/bin/lol-team-maker
+
