@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	ctr "lol-team-maker/controller"
 	"lol-team-maker/models"
 	"time"
 
@@ -15,7 +16,7 @@ func VisitorMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 			Count:     0,
 			Timestamp: time.Now(),
 		}
-		models.UpsertVisitor(visitor)
+		ctr.UpsertVisitor(visitor)
 		return next(c)
 	}
 }

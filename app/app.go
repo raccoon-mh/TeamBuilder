@@ -5,7 +5,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 
-	cv "lol-team-maker/constvalue"
+	cv "lol-team-maker/constvariables"
 	"lol-team-maker/handler"
 	mw "lol-team-maker/middleware"
 	"lol-team-maker/models"
@@ -31,4 +31,5 @@ func main() {
 func banner(e *echo.Echo) {
 	e.HideBanner = true
 	fmt.Print(cv.StartBanner)
+	fmt.Println(cv.DATABASE_PATH)
 }

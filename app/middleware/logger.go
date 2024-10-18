@@ -10,7 +10,7 @@ import (
 var Logger = middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
 	LogStatus: true, LogURI: true, LogMethod: true, LogProtocol: true, LogRemoteIP: true,
 	LogValuesFunc: func(c echo.Context, v middleware.RequestLoggerValues) error {
-		log.Printf("[Logger] %v - %v %v %v %v\n", v.RemoteIP, v.Protocol, v.Method, v.Status, v.URI)
+		log.Printf("[Logger] %v - %v %v %v %v\n", v.RemoteIP, v.Protocol, v.Status, v.Method, v.URI)
 		return nil
 	},
 })
