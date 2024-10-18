@@ -25,11 +25,10 @@ func main() {
 	e.GET("/alive", handler.Alive)
 	e.GET("/v", handler.GetVisitors)
 
-	e.Logger.Fatal(e.Start(":8000"))
+	e.Logger.Fatal(e.Start(":" + cv.PORT))
 }
 
 func banner(e *echo.Echo) {
 	e.HideBanner = true
 	fmt.Print(cv.StartBanner)
-	fmt.Println(cv.DATABASE_PATH)
 }

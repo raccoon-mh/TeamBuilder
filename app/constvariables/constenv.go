@@ -8,6 +8,7 @@ import (
 
 var (
 	DATABASE_PATH string
+	PORT          string
 )
 
 func init() {
@@ -16,8 +17,12 @@ func init() {
 	if err != nil {
 		log.Fatalf("Error reading config file: %v", err)
 	}
+	setEnvs()
+}
 
+func setEnvs() {
 	DATABASE_PATH = getEnvWithDefault("databasepath")
+	PORT = getEnvWithDefault("port")
 }
 
 func getEnvWithDefault(path string) string {
