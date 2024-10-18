@@ -28,3 +28,5 @@ app/meta/meta.db
 #CUSTOM
 staticOld
 README_bak.md
+app/bin/meta/meta.db
+app/bin/lol-team-maker
