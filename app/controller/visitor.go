@@ -2,7 +2,6 @@ package controller
 
 import (
 	"lol-team-maker/models"
-	"time"
 )
 
 func CreateVisitor(v models.Visitor) {
@@ -13,7 +12,6 @@ func UpsertVisitor(v models.Visitor) {
 	var visitor models.Visitor
 	res := models.Db.Where("ip = ?", v.IP).First(&visitor)
 	if res.RowsAffected > 0 {
-		visitor.Timestamp = time.Now()
 		visitor.Count++
 		models.Db.Save(&visitor)
 	} else {

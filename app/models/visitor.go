@@ -1,12 +1,11 @@
 package models
 
 import (
-	"time"
+	"gorm.io/gorm"
 )
 
 type Visitor struct {
-	ID        uint      `gorm:"primaryKey"`
-	IP        string    `json:"ip"`
-	Count     uint      `json:"count"`
-	Timestamp time.Time `json:"timestamp"`
+	gorm.Model
+	IP    string `json:"IP"`
+	Count uint   `json:"Count"`
 }
