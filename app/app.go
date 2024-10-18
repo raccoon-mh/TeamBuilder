@@ -1,22 +1,23 @@
 package main
 
 import (
-	"net/http"
+	"fmt"
 
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 
+	cv "lol-team-maker/constvalue"
+	"lol-team-maker/handler"
 	mw "lol-team-maker/middleware"
 )
 
 func main() {
 	e := echo.New()
+	e.HideBanner = true
+	fmt.Print(cv.StartBanner)
+	e.Use(mw.Logger)
+	e.Use(mw.Limitter)
 
-	e.Use(middleware.RequestLoggerWithConfig(mw.LoggerConfig))
+	e.GET("/alive", handler.Alive)
 
-	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, World!")
-	})
-
-	e.Logger.Fatal(e.Start(":1323"))
+	e.Logger.Fatal(e.Start(":8000"))
 }
