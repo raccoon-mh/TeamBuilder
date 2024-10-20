@@ -32,8 +32,11 @@ app/scripts/container
 app/bin/meta/meta.db
 app/bin/lol-team-maker
 
+# ENV
+app/meta/env.yaml
+
+
 #CUSTOM
 staticOld
 README_bak.md
 
-app/meta/env.yaml
