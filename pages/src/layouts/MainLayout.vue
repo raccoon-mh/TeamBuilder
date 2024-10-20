@@ -1,11 +1,18 @@
 <template>
-  <div>
+  
     <HeaderComponent :title="headerTitle" />
-    <main>
-      <slot />
-    </main>
-    <FooterComponent :message="footerMessage" />
-  </div>
+
+    <div class="page-wrapper">
+
+      <div class="page-body">
+        <div class="container-xl">
+          <slot></slot>
+        </div>
+      </div>
+
+      <FooterComponent/>
+    </div>
+
 </template>
 
 <script>
@@ -21,14 +28,8 @@ export default {
   data() {
     return {
       headerTitle: 'My Vue Application',
-      footerMessage: '© 2024 Your Company'
     };
   }
 }
 </script>
 
-<style scoped>
-main {
-  padding: 20px;
-}
-</style>

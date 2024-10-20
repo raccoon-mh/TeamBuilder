@@ -3,7 +3,7 @@ import AboutPage from '../components/AboutPage.vue';
 import HomePage from '../components/HomePage.vue';
 
 const routes = [
-  { path: '/', component: HomePage },
+  { path: '/', component: HomePage , meta: { title: 'Home Page' } },
   { path: '/about', component: AboutPage }
 ];
 
