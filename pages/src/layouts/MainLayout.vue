@@ -4,11 +4,7 @@
 
     <div class="page-wrapper">
 
-      <div class="page-body">
-        <div class="container-xl">
-          <slot></slot>
-        </div>
-      </div>
+      <slot></slot>
 
       <FooterComponent/>
     </div>

@@ -5,7 +5,7 @@
       <div class="row text-center align-items-center flex-row-reverse">
         <div class="col-lg-auto ms-lg-auto">
           <ul class="list-inline list-inline-dots mb-0">
-            <li class="list-inline-item"><a href="./license.html" class="link-secondary">License</a></li>
+            <li class="list-inline-item"><router-link class="link-secondary" to="/license">License</router-link></li>
           </ul>
         </div>
       </div>
