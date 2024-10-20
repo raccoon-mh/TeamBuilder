@@ -1,7 +1,6 @@
 pages/.DS_Store
 pages/node_modules
 pages/dist
-pages/public
 
 # local env files
 pages/.env.local
