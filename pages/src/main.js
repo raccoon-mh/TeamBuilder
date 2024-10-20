@@ -2,7 +2,6 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 
-
 // Tabler CSS
 import '@fontsource/inter';
 import '@tabler/core/dist/css/demo.min.css';

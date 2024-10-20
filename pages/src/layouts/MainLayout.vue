@@ -26,9 +26,7 @@ export default {
     FooterComponent
   },
   data() {
-    return {
-      headerTitle: 'My Vue Application',
-    };
+    return 
   }
 }
 </script>
