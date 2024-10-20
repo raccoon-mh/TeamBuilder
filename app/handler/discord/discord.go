@@ -18,7 +18,7 @@ var discordOAuthEndpoint = oauth2.Endpoint{
 var oauthConfig = &oauth2.Config{
 	ClientID:     cv.DiscordClientID,
 	ClientSecret: cv.DiscordClientSecret,
-	RedirectURL:  cv.DiscordRedirectURL,
+	RedirectURL:  cv.DiscordCallback,
 	Scopes:       []string{"identify", "email"},
 	Endpoint:     discordOAuthEndpoint,
 }
@@ -36,7 +36,7 @@ func DiscordCallback(c echo.Context) error {
 	}
 
 	client := oauthConfig.Client(c.Request().Context(), tokenReq)
-	resp, err := client.Get("https://discord.com/api/users/@me")
+	resp, err := client.Get(cv.DiscordIdentifyEndpoint)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}

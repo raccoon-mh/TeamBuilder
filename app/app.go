@@ -7,14 +7,15 @@ import (
 
 	cv "lol-team-maker/constvariables"
 	"lol-team-maker/handler"
+	"lol-team-maker/handler/discord"
 	mw "lol-team-maker/middleware"
 	"lol-team-maker/models"
 )
 
 func main() {
 	e := echo.New()
-	banner(e)
 
+	banner(e)
 	models.InitDB()
 
 	e.Use(mw.Logger)
@@ -24,6 +25,9 @@ func main() {
 
 	e.GET("/alive", handler.Alive)
 	e.GET("/v", handler.GetVisitors)
+
+	e.GET("/login", discord.DiscordLogin)
+	e.GET("/callback", discord.DiscordCallback)
 
 	e.Logger.Fatal(e.Start(":" + cv.PORT))
 }
