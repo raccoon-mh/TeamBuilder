@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
+import store from './store';
 
 // Tabler CSS
 import '@fontsource/inter';
@@ -9,6 +10,9 @@ import '@tabler/core/dist/css/tabler-flags.min.css';
 import '@tabler/core/dist/css/tabler-payments.min.css';
 import '@tabler/core/dist/css/tabler-vendors.min.css';
 import '@tabler/core/dist/css/tabler.min.css';
+
+//custom CSS
+import './assets/css/style.css';
 
 // Tabler JS
 import '@tabler/core/dist/js/demo-theme.min.js';
@@ -20,4 +24,4 @@ import 'apexcharts/dist/apexcharts.min.js';
 import 'jsvectormap/dist/jsvectormap.min.js';
 import 'jsvectormap/dist/maps/world-merc.js';
 
-createApp(App).use(router).mount('#app');
+createApp(App).use(router).use(store).mount('#app');

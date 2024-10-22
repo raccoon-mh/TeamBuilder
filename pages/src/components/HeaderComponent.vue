@@ -7,22 +7,56 @@
         </button>
 
         <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-          <a href="index.html">LoL Team Builder</a>
+          <router-link class="nav-link" to="/">LoL Team Builder</router-link>
         </h1>
 
         <div class="navbar-nav flex-row order-md-last">
           <div class="d-none d-md-flex">
 
-            <a @click.prevent="setTheme('dark')" class="nav-link px-0 hide-theme-dark" title="Enable dark mode" data-bs-toggle="tooltip" data-bs-placement="bottom">
+            <button @click="setTheme('dark')" class="nav-link px-0 hide-theme-dark" title="Enable dark mode" data-bs-toggle="tooltip" data-bs-placement="bottom">
               <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg>
-            </a>
+            </button>
 
-            <a @click.prevent="setTheme('light')" class="nav-link px-0 hide-theme-light" title="Enable light mode" data-bs-toggle="tooltip" data-bs-placement="bottom">
+            <button @click="setTheme('light')" class="nav-link px-0 hide-theme-light" title="Enable light mode" data-bs-toggle="tooltip" data-bs-placement="bottom">
               <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" /></svg>
-            </a>
+            </button>
 
           </div>
+
+          <div class="nav-item dropdown">
+
+            <!-- Session Exist -->
+            <div v-if="loginStatus">
+              <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
+                <span class="avatar avatar-sm" :style="{ backgroundImage: `url(https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${user.avatar.startsWith('a_') ? 'gif' : 'png'})`}"></span>
+                <div class="d-none d-xl-block ps-2" id="loginBtn">
+                  <div>{{ user.global_name }}</div>
+                  <div class="mt-1 small text-secondary">{{ user.email }}</div>
+                </div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                <a @click="logout()" class="dropdown-item">Logout</a>
+              </div>
+            </div>
+
+            <!-- Session Not Exist -->
+            <div v-if="!loginStatus">
+              <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
+                <!-- <span class="avatar avatar-sm" :style="{ backgroundImage: `url(${require('@/assets/png/user-scan.png')})` }"></span> -->
+                <div class="d-none d-xl-block ps-2" id="loginBtn">
+                  <div>Login</div>
+                  <div class="mt-1 small text-secondary"></div>
+                </div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                <a @click="openOauth()" class="dropdown-item">Discord Login</a>
+              </div>
+            </div>
+          </div>
+              
+            
         </div>
+
       </div>
     </header>
 
@@ -51,34 +85,60 @@
           </div>
         </div>
       </div>
+      <div>
+    </div>
     </header>
 
   </div>
 </template>
 
+
+
 <script>
+import { detroySession, getUser, isLogin, setSession } from '../util/auth';
+
 export default {
-  data() {
-    return {
-      currentTheme: 'light' // 기본 테마
-    };
-  },
   mounted() {
-    // 페이지 로드 시 localStorage에서 테마 확인
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      this.currentTheme = savedTheme;
-      document.body.className = savedTheme; // HTML body에 테마 클래스 적용
+    this.initTheme()
+  },
+  computed: {
+    user() {
+      return getUser(); 
+    },
+    loginStatus() {
+      return isLogin();
     }
   },
   methods: {
     setTheme(theme) {
       this.currentTheme = theme;
-      localStorage.setItem('theme', theme); // 테마 상태를 localStorage에 저장
-      document.body.className = theme; // HTML body에 테마 클래스 적용
+      localStorage.setItem('tablerTheme', theme);
+      document.body.className = theme;
+      window.location.reload()
+    },
+    initTheme(){
+      const savedTheme = localStorage.getItem('tablerTheme');
+      if (savedTheme) {
+        this.currentTheme = savedTheme;
+      }
+    },
+    openOauth() {
+      window.open(process.env.VUE_APP_DISCORD_OAUTH_URL, '_blank', 'width=800,height=800');
+      window.addEventListener('message', (event) => {
+        const data = event.data;
+        if (data) {
+          setSession(data)
+          window.location.reload()
+        }
+      });
+    },
+    logout(){
+      detroySession()
+      window.location.reload()
     }
   }
 };
+
 </script>
 
 <style>

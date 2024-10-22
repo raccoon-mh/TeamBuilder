@@ -1,16 +1,20 @@
 <template>
-  <MainLayout>
+  <component :is="layoutComponent">
     <router-view />
-  </MainLayout>
+  </component>
 </template>
 
 <script>
+import BlankLayout from './layouts/BlankLayout.vue';
 import MainLayout from './layouts/MainLayout.vue';
 
+
 export default {
-  name: 'App',
-  components: {
-    MainLayout
+  computed: {
+    layoutComponent() {
+      const layout = this.$route.meta.layout || 'MainLayout';
+      return layout === 'BlankLayout' ? BlankLayout : MainLayout;
+    }
   }
 }
 </script>
