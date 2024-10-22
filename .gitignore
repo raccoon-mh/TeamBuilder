@@ -21,6 +21,11 @@ pages/*.njsproj
 pages/*.sln
 pages/*.sw?
 
+# Add Env
+pages/.env.production
+pages/.env.development
+
+
 # Database
 app/meta/meta.db
 
@@ -38,4 +43,5 @@ app/meta/env.yaml
 #CUSTOM
 staticOld
 README_bak.md
+
 
