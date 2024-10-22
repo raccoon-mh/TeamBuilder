@@ -16,4 +16,5 @@ func InitDB() {
 		panic("failed to connect to database")
 	}
 	Db.AutoMigrate(&Visitor{})
+	Db.AutoMigrate(&UserSession{})
 }
