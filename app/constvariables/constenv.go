@@ -7,9 +7,10 @@ import (
 )
 
 var (
-	HOST                string
+	PAGESHOST           string
 	PORT                string
 	DATABASE_PATH       string
+	ADMINEMAIL          string
 	DiscordClientID     string
 	DiscordClientSecret string
 	DiscordRedirect     string
@@ -26,12 +27,10 @@ func init() {
 }
 
 func setEnvs() {
-	HOST = getEnvWithDefault("domain")
-
 	PORT = getEnvWithDefault("port")
-
 	DATABASE_PATH = getEnvWithDefault("databasepath")
-
+	PAGESHOST = getEnvWithDefault("pageshost")
+	ADMINEMAIL = getEnvWithDefault("adminemail")
 	DiscordClientID = getEnvWithDefault("discordclientid")
 	DiscordClientSecret = getEnvWithDefault("discordclientsecret")
 	DiscordRedirect = getEnvWithDefault("discordredirect")

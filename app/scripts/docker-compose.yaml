@@ -1,7 +1,7 @@
 services:
-  lol-team-maker:
-    container_name: lol-team-maker
-    image: lol-team-maker
+  team-builder:
+    container_name: team-builder
+    image: team-builder
     # build:
     #   context: ../
     #   dockerfile: Dockerfile

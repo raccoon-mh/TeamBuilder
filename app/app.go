@@ -2,14 +2,15 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
-	cv "lol-team-maker/constvariables"
-	"lol-team-maker/handler"
-	mw "lol-team-maker/middleware"
-	"lol-team-maker/models"
+	cv "team-builder/constvariables"
+	"team-builder/handler"
+	mw "team-builder/middleware"
+	"team-builder/models"
 )
 
 func main() {
@@ -20,6 +21,12 @@ func main() {
 
 	e.Use(middleware.Recover())
 
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins:     []string{cv.PAGESHOST},
+		AllowMethods:     []string{http.MethodGet, http.MethodPost},
+		AllowCredentials: true,
+	}))
+
 	e.Use(mw.Logger)
 	e.Use(mw.Limitter)
 
@@ -27,10 +34,15 @@ func main() {
 
 	e.GET("/alive", handler.Alive)
 
-	defaultGroup := e.Group("/")
+	defaultGroup := e.Group("/admin")
 	defaultGroup.Use(mw.IsCookieAuthedMiddleware)
-	defaultGroup.GET("/v", handler.GetVisitors)
-	defaultGroup.GET("/t", handler.DiscordTest)
+	defaultGroup.Use(mw.IsAdmin)
+
+	visitorsGroup := defaultGroup.Group("/visitor")
+	visitorsGroup.GET("/list", handler.GetVisitors)
+
+	// visitorsGroup := defaultGroup.Group("/visitor")
+	// defaultGroup.GET("/t", handler.DiscordTest)
 
 	authGroup := e.Group("/auth")
 	authGroup.GET("/login", handler.DiscordLogin)

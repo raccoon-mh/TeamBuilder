@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	cv "lol-team-maker/constvariables"
-	"lol-team-maker/models"
+	cv "team-builder/constvariables"
+	"team-builder/models"
 
 	"github.com/labstack/echo/v4"
 	"golang.org/x/oauth2"
@@ -64,6 +64,14 @@ func GetUserSessions() []models.UserSession {
 	var UserSessions []models.UserSession
 	models.Db.Find(&UserSessions)
 	return UserSessions
+}
+
+func GetUserSessionByToken(token string) (*models.UserSession, error) {
+	var userSession models.UserSession
+	if err := models.Db.Where("access_token = ?", token).First(&userSession).Error; err != nil {
+		return nil, err
+	}
+	return &userSession, nil
 }
 
 func DeleteUserSessionByEmail(email string) {

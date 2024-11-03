@@ -1,8 +1,8 @@
 package handler
 
 import (
-	ctr "lol-team-maker/controller"
 	"net/http"
+	ctr "team-builder/controller"
 
 	"github.com/labstack/echo/v4"
 )

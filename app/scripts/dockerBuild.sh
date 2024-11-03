@@ -1,1 +1,1 @@
-docker build -f ../Dockerfile -t lol-team-maker ..
+docker build -f ../Dockerfile -t team-builder ..

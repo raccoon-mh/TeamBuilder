@@ -1,7 +1,7 @@
 package models
 
 import (
-	cv "lol-team-maker/constvariables"
+	cv "team-builder/constvariables"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"

@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	ctr "lol-team-maker/controller"
-	"lol-team-maker/models"
+	ctr "team-builder/controller"
+	"team-builder/models"
 
 	"github.com/labstack/echo/v4"
 )

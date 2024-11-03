@@ -1,4 +1,4 @@
-BINARY_NAME=lol-team-maker
+BINARY_NAME=team-builder
 BUILD_DIR=bin
 
 all: build

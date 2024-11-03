@@ -1,4 +1,4 @@
-module lol-team-maker
+module team-builder
 
 go 1.23
 

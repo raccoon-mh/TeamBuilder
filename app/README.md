@@ -15,12 +15,12 @@ Simple LoLTeamBuilder
 
 ## build
 ```
-docker build -t lol-team-maker .
+docker build -t team-builder .
 ```
 
 ## deploy 1
 ```
-docker run --rm -p 8000:8000 --name lol-team-maker-container -v ./container/meta:/app/meta lol-team-maker
+docker run --rm -p 8000:8000 --name team-builder-container -v ./container/meta:/app/meta team-builder
 ```
 
 ## deploy 2

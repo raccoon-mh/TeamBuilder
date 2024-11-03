@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"lol-team-maker/models"
+	"team-builder/models"
 )
 
 func CreateVisitor(v models.Visitor) {

@@ -1,38 +1,61 @@
+import { apiGet } from './http';
 
-export function isLogin(){
-    if (getAuthToken() !== "") {
-        return true
-    }
-    return false
-}
-
-export function setSession(data){
+// cookie
+export function setCookie(data){
     if (process.env.NODE_ENV === 'development') {
-        document.cookie = `authToken=${data.token}; path=/;`;
-        document.cookie = `user=${data.user}; path=/;`;
+        document.cookie = `token=${data.token}; path=/;`;
     } else {
-        document.cookie = `authToken=${data.token}; path=/; Secure; SameSite=Strict`;
-        document.cookie = `user=${data.user}; path=/; Secure; SameSite=Strict`;
+        document.cookie = `token=${data.token}; path=/; Secure; SameSite=Strict`;
     }
 }
 
-export function detroySession(){
-    document.cookie = "authToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-    document.cookie = "user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-}
-
+// cookie
 export function getAuthToken() {
-    const token = document.cookie.split('; ').find(row => row.startsWith('authToken='));
+    const token = document.cookie.split('; ').find(row => row.startsWith('token='));
     if (token) {
         return token.split('=')[1];
     }
     return "";
 }
 
-export function getUser() {
-    const token = document.cookie.split('; ').find(row => row.startsWith('user='));
-    if (token) {
-        return JSON.parse(token.split('=')[1]);
+// apiCall
+export async function getUser() {
+    const user = await apiGet("/user/info");
+    return user;
+}
+
+//sessionStorage
+export function setUserToSession(user) {
+    sessionStorage.setItem('user', JSON.stringify(user));
+}
+
+//sessionStorage
+export function getUserFromSession() {
+    const userData = sessionStorage.getItem('user');
+    if (userData && userData !== "undefined") {
+        const user = JSON.parse(userData);
+        return user
     }
     return null;
+}
+
+//sessionStorage
+export function setUserIsAdmin(isadmin) {
+    sessionStorage.setItem('admin', isadmin);
+}
+
+//sessionStorage
+export function getUserIsAdmin() {
+    const isAdmin = sessionStorage.getItem('admin');
+    if (isAdmin && isAdmin !== "undefined") {
+        return isAdmin
+    }
+    return false;
+}
+
+
+// sessionStorage and cookie destroy
+export function destroySession(){
+    document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    sessionStorage.clear()
 }

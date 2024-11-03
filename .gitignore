@@ -34,7 +34,8 @@ app/scripts/container
 
 # bin
 app/bin/meta/meta.db
-app/bin/lol-team-maker
+app/bin/team-builder
+app/tmp
 
 # ENV
 app/meta/env.yaml

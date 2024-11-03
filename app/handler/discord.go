@@ -1,12 +1,14 @@
 package handler
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
-	ctr "lol-team-maker/controller"
-	"lol-team-maker/models"
 	"net/http"
+
+	cv "team-builder/constvariables"
+	ctr "team-builder/controller"
+
+	"team-builder/models"
 
 	"github.com/labstack/echo/v4"
 )
@@ -34,34 +36,26 @@ func DiscordCallback(c echo.Context) error {
 	userSession.DiscordUser = userInfo
 	ctr.UpsertUserSession(userSession)
 
-	userInfoJSON, err := json.Marshal(userInfo)
-	if err != nil {
-		log.Println(err.Error())
-		return c.JSON(http.StatusBadRequest, err)
-	}
-
 	log.Println("tokenReq", tokenReq)
 
 	html := fmt.Sprintf(`
 		<script>
-			window.opener.postMessage({ token:'%s', user: '%s' }, '*');
+			window.opener.postMessage({ token:'%s' }, '*');
 			window.close();
 		</script>`,
 		tokenReq.AccessToken,
-		string(userInfoJSON),
 	)
 
 	return c.HTML(http.StatusOK, html)
 }
 
 func DiscordUserInfo(c echo.Context) error {
-	userInfo, err := ctr.DiscordGetUserInfo(c, "")
+	userInfo, err := ctr.DiscordGetUserInfo(c, c.Get("token").(string))
 	if err != nil {
 		log.Println(err.Error())
 		return c.JSON(http.StatusBadRequest, err)
 	}
-
-	return c.JSON(http.StatusOK, userInfo)
+	return c.JSON(http.StatusOK, map[string]interface{}{"userInfo": userInfo, "admin": userInfo.Email == cv.ADMINEMAIL})
 }
 
 func GetUserSessions(c echo.Context) error {
